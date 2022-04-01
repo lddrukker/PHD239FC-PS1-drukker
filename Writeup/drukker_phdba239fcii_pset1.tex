@@ -1,0 +1,344 @@
+\documentclass[12pt]{article}
+\usepackage{amscd, amsmath, amssymb, amsthm, latexsym, verbatim, graphicx}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{epsfig}
+\usepackage{float}
+\usepackage[flushleft]{threeparttable}
+\usepackage{xcolor}
+\usepackage[top=1.0 in, bottom=1.0in, right=0.75in, left=0.75in, paperwidth=8.0in, paperheight=11.5in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usepackage{marvosym}
+\usepackage{tikzsymbols}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{fontawesome}
+\usepackage{ulem}
+\usepackage{bbm}
+\usepackage{natbib} 
+\usepackage{hyperref}
+%\usepackage{fourier}
+\usepackage{titlesec}
+%\usepackage{subfig}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\usepackage{accents}
+\newcommand{\ubar}[1]{\underaccent{\bar}{#1}}
+
+\pagestyle{fancy}
+\pagenumbering{arabic}
+%\fancyhf{}
+\fancyhead[L]{Leonel Drukker} 
+\fancyhead[C]{PHDBA 239FC, Stanton} 
+\fancyhead[R]{March 25, 2022}
+%\setlength{\parindent}{0.25in}
+
+\linespread{1.15}
+
+\titleformat*{\section}{\normalfont\itshape\normalsize}
+\titleformat*{\subsection}{\normalfont\itshape\normalsize}
+\titleformat*{\subsubsection}{\normalfont\itshape\normalsize}
+\renewcommand*{\thesection}{\arabic{section}.}
+\renewcommand*{\thesubsection}{\alph{subsection}.}
+\renewcommand*{\thesubsubsection}{\roman{subsubsection}.}
+
+\newcommand\Mydiv[1]{
+\kern.25em\smash{\raise.3ex\hbox{\big)}}\mkern-8mu
+        \overline{\enspace\strut#1}}
+
+\newcommand{\shrug}[1][]{%
+	\begin{tikzpicture}[baseline,x=0.8\ht\strutbox,y=0.8\ht\strutbox,line width=0.125ex,#1]
+		\def\arm{(-2.5,0.95) to (-2,0.95) (-1.9,1) to (-1.5,0) (-1.35,0) to (-0.8,0)};
+		\draw \arm;
+		\draw[xscale=-1] \arm;
+		\def\headpart{(0.6,0) arc[start angle=-40, end angle=40,x radius=0.6,y radius=0.8]};
+		\draw \headpart;
+		\draw[xscale=-1] \headpart;
+		\def\eye{(-0.075,0.15) .. controls (0.02,0) .. (0.075,-0.15)};
+		\draw[shift={(-0.3,0.8)}] \eye;
+		\draw[shift={(0,0.85)}] \eye;
+		% draw mouth
+		\draw (-0.1,0.2) to [out=15,in=-100] (0.4,0.95); 
+\end{tikzpicture}}
+
+
+
+\begin{document}
+\graphicspath{ {../Output/} }
+\makeatletter
+\def\input@path{{../Output/}}
+%or: \def\input@path{{/path/to/folder/}{/path/to/other/folder/}}
+\makeatother
+I worked with Jun Peng and Andrew Perry.
+
+\section{You take out a 30-year, fixed-rate mortgage for \$1,000,000. The interest rate on the mortgage loan is 5.25\% (APR, compounded monthly), and it requires you to make equal payments at the end of each of the next 360 months (i.e., the first payment is 1 month from today and the last payment is 360 months from today).}
+ 
+ \subsection{What is the amount of each monthly payment?}
+ \begin{align*}
+ 	\$1,000,000 & = \frac{c}{1+r} + \frac{c}{(1+r)^2} + \ldots + \frac{c}{(1+r)^{360}} \\
+		%& = c\sum_{i=1}^{360} \frac{1}{(1+r)^i} \\
+		%& = c \left(\frac{1 - 1/(1+r)^{360}}{1-1/(1+r)} \right) \\
+		%& = c \left(\frac{1 - 1/(1+r)^{360}}{r/(1+r)} \right) \\
+		%& = \frac{c}{r}\left(1+r - \frac{1}{(1+r)^{360}}\right) \\
+		& = \frac{c}{r}\left(1-\frac{1}{(1+r)^{360}}\right) \\
+	\Rightarrow c & = \$\input{q1a}
+ \end{align*}
+% \begin{table}[H]
+%	\centering
+%	\caption*{\$}
+%	\input{q1a}
+%\end{table}
+%\input{q1ai}
+
+%
+
+\subsection{What is the remaining balance on the loan immediately after the 100th loan payment?}
+\begin{align*}
+	c\sum_{i=1}^{260} \frac{1}{(1+r)^i} & =\frac{c}{r}\left(1-\frac{1}{(1+r)^{260}}\right) \\ %= \frac{c}{r}\left(1+r - \frac{1}{(1+r)^{260}}\right) \\
+		& = \$\input{q1b}
+\end{align*}
+
+%
+
+\subsection{How much interest in total will you pay during year 10 of the mortgage (i.e., what is the total amount of interest included in the 12 payments ending with the payment 120 months from today)?}
+The present value (in month 120 terms) of the remaining balances at month 108 (beginning of year 10) and month 120 (end of year 10) are
+\begin{align*}
+	balance_{108} & = (1+r)^{12}\times c\sum_{i=1}^{252} \frac{1}{(1+r)^i} \\
+		& = (1+r)^{12}\times \frac{c}{r}\left(1 - \frac{1}{(1+r)^{252}}\right)  \\
+		& = \$\input{q1ci} \\
+	balance_{120} & = c\sum_{i=1}^{240} \frac{1}{(1+r)^i} \\
+		& = \frac{c}{r}\left(1 - \frac{1}{(1+r)^{240}}\right) \\
+		& = \$\input{q1cii}
+	\intertext{The difference in balances is \$\input{q1ciii} and the total payments for the year are \$\input{q1civ}. Thus, total interest paid is \$\input{q1cv}.}
+\end{align*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{The annually compounded one-, two- and three-year spot rates, $r_1(0,1), r_1(0,2)$, and $r_1(0,3)$, are 5\%, 6\% and 7\% respectively.}
+
+\subsection{What are the first three annually compounded (one-year) forward rates for years 1,2 and 3, $f_1(0, 0, 1), f_1(0, 1, 2)$ and $f_1(0, 2, 3)$?}
+\begin{align*}
+	f_1(0,0,1) & = r_1(0,1) = 0.05 \\
+	1 + f_1(0,1,2) & = \frac{(1+r_1(0,2))^2}{1+r_1(0,1)} \\
+	\Rightarrow f_1(0,1,2) & \approx \input{q2ai} \\
+	1 + f_1(0,2,3) & = \frac{(1+r_1(0,3))^3}{(1+r_1(0,2))^2} \\
+	\Rightarrow f_1(0,2,3) & \approx \input{q2aii} \\
+\end{align*}
+
+%
+
+\subsection{If no explicit forward-rate agreements existed, how would you use a combination of spot lending and borrowing to effectively borrow \$1,000 a year from today, and pay it back 3 years from today (plus interest)?}
+Notice that
+\begin{align*}
+	1+ f_1(0,1,3) & = (1+f_1(0,1,2))\cdot (1+f_1(0,2,3)) \\
+		& = \left(\frac{(1+r_1(0,2))^2}{1+r_1(0,1)} \right) \cdot \left(\frac{(1+r_1(0,3))^3}{(1+r_1(0,2))^2}\right) \\
+	\Rightarrow f_1(0,1,3) & = \input{q2bi}
+	\intertext{We borrow in one year}
+	\frac{\$1,000}{1+f_1(0,0,1)} & = \frac{\$1,000}{1+r_1(0,1)} \\ 
+		& = \frac{\$1,000}{1.05} \\
+		& = \$\input{q2bii}
+	\intertext{and we pay back two years after (three years from today)}
+	\$\input{q2bii}\cdot(1+f_1(0,1,3)) & = \$\input{q2bii}\cdot(1+\input{q2bi}) \\
+		& = \$\input{q2biii}
+\end{align*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{The annually compounded one-, two- and three-year forward rates, $f_1(0, 0, 1), f_1(0, 1, 2)$ and $f_1(0,2,3)$, are 11\%, 13\% and 17\% respectively. What are the annually compounded one, two and three-year spot rates, $r_1(0, 1), r_1(0, 2)$ and $r_1(0, 3)$?}
+
+\begin{align*}
+	r_1(0,1) & = f_1(0,0,1) = 0.11 \\
+	1 + f_1(0,1,2) & = \frac{(1+r_1(0,2))^2}{1+r_1(0,1)} \\
+	\Rightarrow r_1(0,2) & = \input{q3i} \\
+	1 + f_1(0,2,3) & = \frac{(1+r_1(0,3))^3}{(1+r_1(0,2))^2} \\
+	\Rightarrow r_1(0,3) & = \input{q3ii}
+\end{align*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{We defined a bond's yield to maturity in class. An alternative measure that is sometimes quoted is a bond’s current yield, defined as its coupon rate (as a percentage) divided by its current price (quoted per \$100 face value). So a bond with a 5\% annual coupon rate and a current price of \$102 would have a current yield of $$\frac{5}{102} = 4.0902\%.$$ Prove that for a discount bond (i.e., price $<$ \$100), YTM $>$ current yield $>$ coupon rate, and for a premium bond (i.e., price $>$ \$100), YTM $<$ current yield $<$ coupon rate.}
+
+A bond's YTM is $y$ which solves
+	\[ P = \frac{C}{(1+y)} + \frac{C}{(1+y)^2} + \ldots \frac{C}{(1+y)^{T}} + \frac{f}{(1+y)^T}.\]
+If the bond is discounted at $P^*<\$100$, then it's current yield ($y^*$) is greater than the coupon rate since
+	\[ y^* = \frac{c\cdot 100}{P^*}>c.\]
+If the bond is at a premium at $P^*>\$100$, then it's current yield ($y^*$) is less than the coupon rate since
+	\[ y^* = \frac{c\cdot 100}{P^*}<c.\]
+\begin{align*}
+	P & = \frac{C}{(1+y)} + \frac{C}{(1+y)^2} + \ldots \frac{C}{(1+y)^{T}} + \frac{f}{(1+y)^T} \\
+		& = \frac{C}{y}\left(1-\frac{1}{(1+y)^T}\right) + \frac{f}{(1+y)^T} 
+	\intertext{This implies that}
+	y & = \frac{\overbrace{c\cdot100/P}^{y^*}}{1-\frac{100-P}{P}\cdot\underbrace{\frac{1}{(1+y)^T-1}}_{>0}}
+	\intertext{We can see that if the bond is discounted, then the denominator is less than one implying that YTM>current yield. If the bond is at a premium, then the denominator is greater than one implying that YTM<current yield.}
+\end{align*}
+%If the bond's current price $P^*$ is $<\$100$ (i.e. the bond is a discount bond) then
+%\begin{align*}
+%	P^* & = \frac{c/k}{(1+y^*/k)} + \frac{c/k}{(1+y^*/k)^2} + \ldots + \frac{c/k}{(1+y^*/k)^{kT}} \\
+%		& < P \\
+%		& = \frac{c/k}{(1+y/k)} + \frac{c/k}{(1+y/k)^2} + \ldots + \frac{c/k}{(1+y/k)^{kT}} 
+%	\intertext{Since the only difference between the two expressions is the yields in the denominators, then the only way this inequality holds is if the denominators in the $P^*$ equation are smaller in magnitude}
+%\end{align*}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Finish the fitting example that we went over in class (slides 34--38) by calculating the third forward rate, $f_3$}
+We first calculate the bond price
+\begin{align*}
+	P & = \frac{c/2}{\exp\{y\cdot(10-6)/12\}} + \frac{100+c/2}{\exp\{y\cdot(10/12)\}} \\
+		& = \frac{3}{\exp\{0.053\cdot4/12\}} + \frac{103}{\exp\{0.053\cdot(10/12)\}} \\
+		& = \input{q5i}
+	\intertext{and solve the equation for $f_3$}
+	P & = \frac{c/2}{\exp\{f_1\cdot(10-6)/12\}} \\
+		& + \frac{100+c/2}{\exp\{f_1\cdot5/12\} + \exp\{f_2\cdot(8-5)/12\} + \exp\{f_3\cdot(10-8)/12\}} \\
+	\input{q5i} & =  \frac{3}{\exp\{0.05\cdot(4)/12\}} \\
+		& + \frac{103}{\exp\{0.05\cdot5/12\} + \exp\{0.053\cdot3/12\} + \exp\{f_3\cdot2/12\}} \\
+	\intertext{to obtain $f_3=\input{q5ii}$.}
+\end{align*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section[]{Fit a yield curve to the input data you just downloaded, assuming that \begin{itemize}\item The simple interest rate $r_s$ is a continuous function of maturity, $r_s(t)$. \item $r_s(t)$ is piecewise linear, with kinks at the maturity dates of the instruments in the input data set. \item $r_s(t)$ is constant outside the range of maturities in the input data. I.e., if $t_{min}$ and $t_{max}$ are, respectively, the shortest and longest maturities in the input sample,\end{itemize} $$r_s(t) = \begin{cases} r_s(t_{min}) & \text{ if }t\leq t_{min} \\ r_s(t_{max}) & \text{if } t\geq t_{max}.\end{cases}$$ \textbf{[This is Bloomberg’s default “method 1” (see Bloomberg, 2021, pp. 7–8). When using this method, assume simple rates are quoted using the Actual/360 day-count.]} \newline Your goal is to match the zero rates and forward rates calculated by Bloomberg, which I've provided for you. \newline Using your fitted yield curve, generate a table showing, at 3-month intervals from 3/4/2019 to 12/4/2068 (use the dates in the output spreadsheet you just downloaded from Bloomberg): \footnote{Report all numbers to 9 decimal places, and report the numbers in columns (b)--(g) as percentages (e.g., 2.615130000\%). Your numbers should be identical to Bloombergs to at least this degree of precision. In other words, the numbers in columns (f) and (g) should all be $\pm$0.000000000\%. To achieve this, you should be aware of the Bloomberg quoting conventions: 1) Zero rates: semi-annually compounded and use 30I/360 day-count 2) Forward rates: simple compounding and use Actual/360 day-count. Note that this is not easy! There are a lot of details to get right to get the numbers to match exactly. In particular, if you manage to match only to, say, 7 decimal places, e.g., a difference of 0.000000026\%, your calculations are not 100\% right... \textbf{[To make this a lot easier, read Stanton (2022b) (provided as a handout for this problem set) in great detail. This is a pretty detailed discussion of the data and the compounding and timing assumptions you will need to make in order to get this to work.]}}}
+
+\subsection{Your fitted discount factor.}
+
+%
+
+\subsection{Your fitted zero rate.}
+
+%
+
+\subsection{Bloomberg's fitted zero rate}
+
+%
+
+\subsection{Your fitted 3-month forward rate}
+
+%
+
+\subsection{Bloomberg's fitted 3-month forward rate}
+
+%
+
+\subsection{The difference between your fitted zero rate and Bloomberg's}
+
+%
+
+\subsection{The difference between your fitted forward rate and Bloomberg's}
+
+\begin{table}
+	\centering
+	\footnotesize
+	\input{q6i}
+\end{table}
+\clearpage
+
+\begin{table}
+	\centering
+	\footnotesize
+	\input{q6ii}
+\end{table}
+\clearpage
+
+\begin{table}
+	\centering
+	\footnotesize
+	\input{q6iii}
+\end{table}
+\clearpage
+
+\begin{table}
+	\centering
+	\footnotesize
+	\input{q6iv}
+\end{table}
+\clearpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Fit the 5-parameter model of Nelson and Siegel (1987) to your input data. Generate the same table as in Question 6, but including only columns (a), (b) and (d).}
+Minimizing $\tau_1$ and $\tau_2$ are \input{q7i} and \input{q7ii}, respectively. The betas $\beta_0,\beta_1,\beta_2$ are 2.000361, 0.773191, and 2.953684, respectively. The model produced a minimizing MSE of \input{q7iv}.
+
+\begin{table}
+	\centering
+	\tiny
+	\input{q7va}
+\end{table}
+\clearpage
+
+\begin{table}
+	\centering
+	\footnotesize
+	\input{q7vb}
+\end{table}
+\clearpage
+
+\begin{table}
+	\centering
+	\footnotesize
+	\input{q7vc}
+\end{table}
+\clearpage
+
+\begin{table}
+	\centering
+	\footnotesize
+	\input{q7vd}
+\end{table}
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Repeat Question 7, this time using the model of Svensson (1994).}
+Minimizing $\tau_1$ and $\tau_2$ are \input{q8i} and \input{q8ii}, respectively. The betas $\beta_0,\beta_1,\beta_2$ are 1.997775,0.774489, and 2.961562, respectively. The model produced a minimizing MSE of \input{q8iv}.
+
+\begin{table}
+	\centering
+	\tiny
+	\input{q8va}
+\end{table}
+\clearpage
+
+\begin{table}
+	\centering
+	\footnotesize
+	\input{q8vb}
+\end{table}
+\clearpage
+
+\begin{table}
+	\centering
+	\footnotesize
+	\input{q8vc}
+\end{table}
+\clearpage
+
+\begin{table}
+	\centering
+	\footnotesize
+	\input{q8vd}
+\end{table}
+\clearpage
+
+
+
+
+
+
+
+
+
+
+
+
+%\begin{figure}[H]
+%        \centering
+%       % \caption*{GDP response to FFER shock}
+%        	\includegraphics[width=\textwidth]{part_a}
+%\end{figure}
+
+
+\end{document}
